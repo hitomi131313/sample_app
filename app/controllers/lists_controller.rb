@@ -17,7 +17,10 @@ class ListsController < ApplicationController
     redirect_to'/top'
   end
 
-  def index
+
+  # indexでデータの一覧を表示する
+  def index 
+    @lists = List.all
   end
 
   def show
