@@ -8,12 +8,12 @@ class ListsController < ApplicationController
 
 
   def create
-    # 入力されたデータを受け取り、そのデータをもとに、新規登録するためのインスタンスを作成
-    # ↑のデータをデータベースに保存するために、↑で作成されたインスタンスにsaveメソッドを実行
-    # show画面遷移(リダイレクト) show-routes
-    list = List.new(list_params)
-    list.save
-    redirect_to list_path(list.id)
+    @list = List.new(list_params)
+    if @list.save
+      redirect_to list_path(@list.id)
+    else
+      render :new
+    end
   end
 
 
