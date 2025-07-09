@@ -7,8 +7,6 @@ class ListsController < ApplicationController
   end
 
 
-  # 最初にまとめてcreateアクションを作成しなかったのは、viewファイルに保存機能のcreateファイルはいらないから？
-  # 対応するviewファイルがなくて受け渡しも必要ないから＠でインスタンス変数にする必要がなく、ローカル変数を利用
   def create
     # 入力されたデータを受け取り、そのデータをもとに、新規登録するためのインスタンスを作成
     # ↑のデータをデータベースに保存するために、↑で作成されたインスタンスにsaveメソッドを実行
@@ -19,7 +17,6 @@ class ListsController < ApplicationController
   end
 
 
-  # indexでデータの一覧を表示する
   def index 
     @lists = List.all
   end
@@ -42,11 +39,17 @@ class ListsController < ApplicationController
   end
 
 
+  def destroy
+    list = List.find(params[:id])
+    list.destroy
+    redirect_to '/lists'
+  end
 
-  # privateは一種の境界線(⁼ここから下はこのcontrollerの中でしか呼び出せません)
+
+
   private
-  # ストロングパラメータ(保存するデータの絞り込み)
   def list_params
     params.require(:list).permit(:title, :body, :image)
   end
+
 end
